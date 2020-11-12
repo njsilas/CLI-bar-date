@@ -3,4 +3,5 @@
 require_relative "../environment.rb"
 
 
-Cli.start
+api = Api.new("gimlet")
+api.cleaned_up_version
