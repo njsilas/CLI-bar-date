@@ -1,6 +1,4 @@
-require 'pry'
-require "httparty"
-require_relative "operator.rb"
+
 class Api
     attr_accessor :query
     
@@ -15,26 +13,22 @@ class Api
         response = Net::HTTP.get(uri)
         hash = JSON.parse(response)
         hash["drinks"]
-        collection_of_booze = hash["drinks"]
-        #collection_of_booze.find(1) do |single_one|
         
-            #Operator.new(drink["strDrink"], drink["strIngredient1"], drink["strIngredient2"])
-        
-        #end
-        
-        
-    end
-    def cleaned_up_version
-        counter = 1
-        self.fetch_drink.each do |drink|
-                
-               if counter == 1  
-               nu_drink = Operator.new(drink["strDrink"], drink["strIngredient1"], drink["strIngredient2"])
-               puts nu_drink
-                counter += 1
-           binding.pry
-            end
+        if hash.value?(nil)
+            Cli.sorry
+        else
+            drink = hash["drinks"][0]
+            Operator.new(drink["strDrink"], drink["strIngredient1"], drink["strIngredient2"], drink["strInstructions"])
         end
+        #def self.the_drink
+        #drink = self.fetch_drink[0]
+       #clean_drink = Operator.new(drink["strDrink"], drink["strIngredient1"], drink["strIngredient2"], drink["strInstructions"])
+                
+                
+         
+            
+            
+        #end
     end
 end
 
