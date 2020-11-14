@@ -1,0 +1,27 @@
+@@chad_responses = ["Nice call!", "Soooo gooood", "Nice, had one last week", "Haven't made one of these since I first started",
+        "She's gunna love it", "Used to drink those bad boys back at state", "I'd smash one", "Oh it's one of those nights huh?"]
+
+           def first_date_chit_chat
+        date_sayings = ["Date: So where do you work?", "Date: Is this your first time here?", "Date: Do you alwasy drink this fast?",
+             "Date: I've got work early tomorrow", "Date: I had fun. Lets do this again."]
+        date_sayings.shift
+    end
+
+   #until Operator.all.length = 4 && Cli.cash.inject(0, :+) < 8 || gets.strip == 'exit'
+     def kicked_out
+      
+          puts "Bartender: I'm sorry but i can't serve you two anymore."
+          sleep (2)
+          puts "Manager: SCRAM!"
+          sleep (4)
+          self.start
+       
+        
+        
+    end
+     #def show_bill
+       # puts "Bartender: Here is your bill"
+        #Operator.all.each do |drink|
+         #   puts "you had a #{drink.drink}"
+      #  end    
+    ##end

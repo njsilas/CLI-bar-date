@@ -1,30 +1,59 @@
 require 'pry'
 class Cli
     attr_accessor  :drink, :ingredient, :additional_ingredient
-        @@chad_responses = ["Nice call!", "Soooo gooood", "Nice, had one last week", "Haven't made one of these since I first started",
-        "She's gunna love it", "Used to drink those bad boys back at state", "I'd smash one", "Oh it's one of those nights huh?"]
+     @@cash = []   
     def start
-        @@cash = []
-    
-        puts "Welcome, please have a seat"
         
-        got_one_in_mind?
+    
+        puts "Bartender: Welcome, please have a seat"
+        puts ""
+        puts ""
+        sleep(1)
+        options
     end  
-    def got_one_in_mind?
-        puts "Bartender: Got one in mind?"
-        user_input = gets.strip
-        api = Api.new(user_input)
-       
+    def options
+        puts "1. Order a drink. 2. Ask for a dealers choice. 3. See your bill. 4. Settle up and leave."
+        user_input = gets.chomp
+            if user_input.to_i == 1
+                got_one_in_mind?
+            elsif
+                user_input.to_i == 2
+                rando
+            elsif 
+                user_input.to_i == 3
+                bill
+            elsif
+                user_input.to_i == 4
+                exit
+            else
+                puts "Please try again"
+                options
+            end
+    end
+        def got_one_in_mind?
+      
+            puts "Bartender: Got one in mind?"
+            user_input = gets.strip
+             api = Api.new(user_input)
+    
             details = api.fetch_drink
+            if details
+           
             puts "Bartender: Here is your #{details.drink}. it has #{details.ingredient} and a little #{details.additional_ingredient}."
+            else
+            sorry 
+            end
         
         puts "Bartender: Wanna know how I made it?"
         nu_input = gets.strip
         if nu_input == "yes"
             puts "Bartender: #{details.instructions}"
+            tip
+        options
         elsif
             nu_input == "no"
-            got_one_in_mind?
+           tip
+            options
 
        
         end
@@ -40,25 +69,55 @@ class Cli
     def self.cash
         @@cash
     end
-    def kicked_out
-       if Operator.all.length = 4 && Cli.cash.inject(0, :+) < 8
-          puts "Bartender: I'm sorry but i can't serve you two anymore."
-          sleep (2)
-          puts "Manager: SCRAM!"
-          sleep (4)
-          self.start
-       
-        end
-        
-    end
-    def first_date_chit_chat
-        date_sayings = ["Date: So where do you work?", "Date: Is this your first time here?", "Date: Do you alwasy drink this fast?",
-             "Date: I've got work early tomorrow", "Date: I had fun. Lets do this again."]
-        date_sayings.shift
-    end
-    def self.sorry
+  
+ 
+    def sorry
         puts "Bartender: ain't got that for ya"
-       got_one_in_mind?
+    
+        got_one_in_mind?
     end
+   def exit
+    puts "Bartender: here is your bill, goodnight."
+       
+    if Operator.all.empty?
 
+        else
+            Operator.all.each do |drink_in|
+                puts drink_in.drink 
+            end
+        end
+            
+    end
+    def bill
+        if Operator.all.empty?
+            puts "You haven't ordered anything. Are you drunk?"
+            options
+        
+        else
+            Operator.all.each do |drink_in|
+                puts drink_in.drink 
+                options
+            end
+        end
+            
+    end
+    def rando
+        api = Api.new()
+    
+        details = api.dealers_choice 
+         puts "Bartender: Here is your #{details.drink}. it has #{details.ingredient} and a little #{details.additional_ingredient}."
+        
+            puts "Bartender: Wanna know how I made it?"
+            nu_input = gets.strip
+            if nu_input == "yes"
+                puts "Bartender: #{details.instructions}"
+                tip
+            options
+            elsif
+                nu_input == "no"
+               tip
+                options
+    
+            end
+    end
 end
