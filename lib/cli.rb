@@ -51,7 +51,7 @@ class Cli
             tip
         options
         elsif
-            nu_input == "no"
+            
            tip
             options
 
@@ -83,21 +83,28 @@ class Cli
 
         else
             Operator.all.each do |drink_in|
+               sleep(1)
                 puts drink_in.drink 
+                
             end
+            Kernel.exit
         end
             
     end
     def bill
         if Operator.all.empty?
             puts "You haven't ordered anything. Are you drunk?"
+           sleep(2)
             options
         
         else
             Operator.all.each do |drink_in|
+               sleep(1)
                 puts drink_in.drink 
-                options
+               
+                
             end
+            options
         end
             
     end
@@ -114,7 +121,7 @@ class Cli
                 tip
             options
             elsif
-                nu_input == "no"
+                
                tip
                 options
     
