@@ -15,18 +15,25 @@ class Cli
 
   def options
     puts '1. Order a drink. 2. Ask for a dealers choice. 3. See your bill. 4. Settle up and leave.'
+    puts ''
+    puts ''
     user_input = gets.chomp
     case user_input.to_i
     when 1
+      sleep(1)
       got_one_in_mind?
     when 2
+      sleep(1)
       rando
     when 3
+      sleep(1)
       bill
     when 4
+      sleep(1)
       exit
     else
       puts 'Please try again'
+      puts ''
       options
     end
   end
@@ -40,14 +47,17 @@ class Cli
     if details
 
       puts "Bartender: Here is your #{details.drink}. it has #{details.ingredient} and a little #{details.additional_ingredient}."
+      puts ''
     else
       sorry
     end
-
+    sleep(1)
     puts 'Bartender: Wanna know how I made it?'
     nu_input = gets.strip
     if nu_input == 'yes'
       puts "Bartender: #{details.instructions}"
+      puts ''
+      puts ''
       tip
       options
     elsif tip
